@@ -7,7 +7,26 @@ class Board
   end
 
   def win?() # check if the board contains winning pattern
+    result = false
+    @@board.each do |row| # check rows
+      result = (row.uniq.count == 1)
+      result ? break : false
+    end
 
+    if (@@board[0][0] == @@board[1][0]) && (@@board[1][0] == @@board[2][0]) #check columns
+      return true
+    elsif (@@board[0][1] == @@board[1][1]) && (@@board[1][1] == @@board[2][1])
+      return true
+    elsif (@@board[0][2] == @@board[1][2]) && (@@board[1][2] == @@board[2][2])
+      return true
+    end
+    
+    if (@@board[0][0] == @@board[1][1]) && (@@board[1][1] == @@board[2][2]) #check diagonals
+      return true
+    elsif (@@board[0][2] == @@board[1][1]) && (@@board[1][1] == @@board[2][0])
+      return true
+    end
+    result
   end
 
   def create() # 3x3 board numbered from 1-9
@@ -68,10 +87,10 @@ end
 
 temp = Board.new()
 temp.create
+temp.board_input('o', 4)
+temp.board_input('o', 5)
+temp.board_input('o', 6)
 temp.display_board
-puts "Enter location:"
-a = gets
-temp.board_input('o', a)
-temp.display_board
+puts temp.win?
 
 
