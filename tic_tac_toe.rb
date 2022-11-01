@@ -1,27 +1,31 @@
 class Board
-  
-  @@board = Array.new(3, 0) {Array.new(3, 0)}
-  
-  def initialize()
 
+  @@board = Array.new(3, 0) {Array.new(3, 0)}
+
+  def initialize()
+    create()
   end
 
   def win?() # check if the board contains winning pattern
     result = false
-    @@board.each do |row| # check rows
+
+    # check rows
+    @@board.each do |row|
       result = (row.uniq.count == 1)
       result ? break : false
     end
 
-    if (@@board[0][0] == @@board[1][0]) && (@@board[1][0] == @@board[2][0]) #check columns
+    #check columns
+    if (@@board[0][0] == @@board[1][0]) && (@@board[1][0] == @@board[2][0])
       return true
     elsif (@@board[0][1] == @@board[1][1]) && (@@board[1][1] == @@board[2][1])
       return true
     elsif (@@board[0][2] == @@board[1][2]) && (@@board[1][2] == @@board[2][2])
       return true
     end
-    
-    if (@@board[0][0] == @@board[1][1]) && (@@board[1][1] == @@board[2][2]) #check diagonals
+
+    #check diagonals
+    if (@@board[0][0] == @@board[1][1]) && (@@board[1][1] == @@board[2][2])
       return true
     elsif (@@board[0][2] == @@board[1][1]) && (@@board[1][1] == @@board[2][0])
       return true
@@ -64,7 +68,7 @@ class Board
       else
         @@board[coords[0]][coords[1]] = 'o'
       end
-    else 
+    else
       puts "Invalid input"
     end
   end
@@ -81,16 +85,20 @@ class Board
     end
     return [a, b]
   end
-
-  
 end
 
-temp = Board.new()
-temp.create
-temp.board_input('o', 4)
-temp.board_input('o', 5)
-temp.board_input('o', 6)
-temp.display_board
-puts temp.win?
+def cycle_game(board, current_player)
+  puts "You are player #{current_player}"
+  board.display_board
+  puts "Enter location"
+  location = gets
+  board.board_input(current_player, location)
+end
+
+game_board = Board.new()
+cycle_game(game_board, 'x')
+
+
+
 
 
