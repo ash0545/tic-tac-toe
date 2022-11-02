@@ -96,8 +96,24 @@ def cycle_game(board, current_player)
 end
 
 game_board = Board.new()
-cycle_game(game_board, 'x')
+i = 0
 
+while true do
+  switcher = i % 2
+  x_o = ['x', 'o']
+  cycle_game(game_board, x_o[switcher])
+  if game_board.win?
+    game_board.display_board
+    puts "Player #{x_o[switcher]} has won!"
+    break
+  end
+  i += 1
+  if i == 9
+    game_board.display_board
+    puts "It's a draw!"
+    break
+  end
+end
 
 
 
